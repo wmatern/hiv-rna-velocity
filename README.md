@@ -50,3 +50,8 @@ Second, it is clear that there is a population of cells that lack beta-2-microgl
 1. Mitochodrial gene expression.
 2. Identify genes that correlate with B2M.
 3. Adjust RNA velocity fitting params to clean-up plots.
+
+## Acknowledgements
+T Bradley, G Ferrari, BF Haynes, DM Margolis, EP Browne. Single-cell analysis of quiescent HIV infection reveals host transcriptional profiles that regulate proviral latency. Cell reports 25 (1), 107-117. https://doi.org/10.1016/j.celrep.2018.09.020.
+
+[This](https://combine-lab.github.io/alevin-tutorial/2020/alevin-velocity/) tutorial on using alevin with RNA velocity.
