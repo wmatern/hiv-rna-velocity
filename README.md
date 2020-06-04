@@ -4,14 +4,21 @@ RNA velocity analysis for samples from model of HIV latency
 ## How to run
 ```
 git clone wmatern/hiv-rna-velocity
-wget input_data.com
-conda env create -f environment.yml
+```
+Go to this [link](https://drive.google.com/file/d/1Auur5sKTyfjveIyXf8dpGRbu5BCeMQKw/view?usp=sharing) and download the entire zip file containing the input data (alevin mapping results).
+
+Place the file into the hiv-rna-velocity/ directory.
+
+```
 cd hiv-rna-velocity/
+unzip input.zip
+conda env create -f environment.yml
+conda activate wmatern_hiv
 ```
 
 And then either:
 ```
-jupyter analysis.ipynb
+jupyter notebook analysis.ipynb
 ```
 or
 ```
@@ -19,9 +26,9 @@ jupyter-lab analysis.ipynb
 ```
 
 ## Background:
-A paper from a few years ago (PMID: 30282021) reported a scRNAseq dataset (10x Chromium V2) collected from HIV infected and uninfected cells from an in vitro model of latency. The goal of the original paper (as is my goal here) was to identify potential mechanisms that might be exploited to eliminate the HIV latent reservoir. If that could be done (ie via a new class of drugs) then HIV stands a chance of being cured permanently (and not just suppressed as is currently done).
+A paper from a few years ago (PMID: 30282021) reported a scRNAseq dataset (10x Chromium V2) collected from HIV infected and uninfected cells from an in vitro model of HIV latency. The goal of the original paper (as is my goal here) was to identify potential mechanisms that lead to the HIV latent reservoir. If that could be done (ie via a new class of drugs) then HIV stands a chance of being cured permanently, not just suppressed with drugs.
 
-The paper was published around the time the first RNA velocity paper was published (PMID: 30089906). As such, it is unlikely the authors considered using this approach and the new technique might help to give a more detailed understanding of the latent HIV reservoir. 
+The paper was published around the time the first RNA velocity paper was published (PMID: 30089906). As such, it is unlikely the authors considered using this analysis technique which might help to give a more detailed understanding of the latent HIV reservoir. 
 
 In this analysis I have used the excellent scVelo package (w/ scanpy and anndata) to estimate RNA velocity components (https://doi.org/10.1101/820936). The RNA velocity approach is based on the idea that unspliced transcripts can be used to estimate the "future state" of the cell (and thus the local trajectory or velocity of each cell). These approaches require that both the unspliced and spliced transcripts be enumerated during mapping. 
 
