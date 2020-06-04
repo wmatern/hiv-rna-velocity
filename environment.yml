@@ -1,4 +1,4 @@
-name: tximeta
+name: wmatern_hiv
 channels:
   - r
   - conda-forge
