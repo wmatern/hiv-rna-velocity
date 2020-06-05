@@ -25,15 +25,15 @@ or
 jupyter-lab analysis.ipynb
 ```
 
-## Background:
-Docker image I used to create input fasta files (spliced + unspliced transcriptome) from genome files is on dockerhub:
+The docker image I used to create input fasta files (spliced + unspliced transcriptome) from genome files is on dockerhub:
 ```
 docker pull wmatern/alevin_scrnaseq_velocity:0.1
 ```
-Docker image I used to build the salmon index and map reads:
+The image I used to build the salmon index and map reads:
 ```
-sudo docker pull combinelab/salmon
+docker pull combinelab/salmon
 ```
+## Background:
 
 A paper from a few years ago (PMID: 30282021) reported a scRNAseq dataset (10x Chromium V2) collected from HIV infected and uninfected cells from an in vitro model of HIV latency. The goal of the original paper (as is my goal here) was to identify potential mechanisms that lead to the HIV latent reservoir. If these mechanisms can be disrupted (ie via a new class of drugs) then HIV stands a chance of being cured permanently, not just suppressed with drugs.
 
