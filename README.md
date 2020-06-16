@@ -51,6 +51,9 @@ From here, various processing calculations are performed including normalization
 Plots are then generated. I still need to tweak the velocity fitting parameters as they are a bit messy but they give the gist of the dynamics.
 
 ## Conclusions:
+![Groups](/figures/umap_merged_group.png)
+![Merged B2M](/figures/umap_merged_B2M.png)
+![Merged CD3d](/figures/umap_merged_CD3d.png)
 It is clear so far from the analysis that there is contamination of the CD4 T-cells with non-T cells in donor 1 (but not donor 2). My guess is that these are likely the feeder cells (H80) which are used to keep the immune cells activated and alive. This population can be clearly seen by examining CD3 expression (a T-cell marker) in figures:  scvelo\_d1i\_CD3d\_umap.png and scvelo\_d1u\_CD3d\_umap.png
 
 Second, it is clear that there is a population of cells that lack beta-2-microglobulin (B2M) expression but express CD3. This subpopulation can be clearly seen in figures scvelo\_d1u\_B2M\_umap.png, scvelo\_d2u\_B2M\_umap.png, scvelo\_B2M\_CD3d\_umap.png. If this turns out to be real it could suggest that a subset of Tcells can downregulate B2M - suggesting a possible mechanism by which T-cells can survive for long periods of time by avoiding CTLs (which require expression of B2M as part of MHC-1 in order to mediate killing). I am looking into what other genes correlate with B2M expression in this dataset in hopes of a hint for what might be causing loss of B2M.
