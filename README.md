@@ -29,21 +29,23 @@ Now I plot the expression of Beta-2-microglobulin (B2M):
 This shows that in d1u, d2u, and d2i that there is a substantial fraction of cells with very low expression of B2M. This could be significant as B2M is required to produce MHC class 1 surface moleculars which are used by CD8+ T-cells to kill infected cells.
 
 ### Individual sample analysis
-Now I will examine each sample separately using the RNA-velocity. For now, I am recalculating the UMAP embedding for each sample (therefore individual samples are not directly comparable across plots). I am still working on transferring the merged embedding (after batch correction) to each individual sample which will make samples easier to compare.
+Next I examined plots of each sample separately using the embedded RNA-velocity field overlaid on the UMAP embedding. For now, I am recalculating the UMAP embedding for each sample (therefore individual samples are not directly comparable across plots). I am still working on transferring the merged embedding (after batch correction) to each individual sample which will make samples easier to compare. I also performed clustering using the louvain algorithm with default settings (scvelo.tl.louvain()) - though I think I would prefer to see fewer clusters for these samples.
 
 #### Donor 1, infected
 ![B2M d1i](/figures/scvelo_d1i_B2M_umap.png)
+![louvain d1i](/figures/scvelo_d1i_clusters_umap.png)
 
 #### Donor 2, infected
 ![B2M d2i](/figures/scvelo_d2i_B2M_umap.png)
+![louvain d2i](/figures/scvelo_d2i_clusters_umap.png)
 
 #### Donor 1, uninfected
 ![B2M d1u](/figures/scvelo_d1u_B2M_umap.png)
+![louvain d1u](/figures/scvelo_d1u_clusters_umap.png)
 
 #### Donor 2, uninfected
 ![B2M d2u](/figures/scvelo_d2u_B2M_umap.png)
-
-
+![louvain d2u](/figures/scvelo_d2u_clusters_umap.png)
 
 ## Conclusions:
 It is clear so far from the analysis that there is contamination of the CD4 T-cells with non-T cells in donor 1 (but not donor 2). My hypothesis is that these are likely the feeder cells (H80) which are used to keep the immune cells activated and alive. 
