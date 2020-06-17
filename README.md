@@ -13,9 +13,11 @@ To get the necessary setup to apply this approach I mapped the authors raw fastq
 
 ## Results
 ### Combined sample analysis
-First I merged all the samples and plotted the UMAP embedding to get an overall view of data. The source of the cells was not used for clustering. There are obvious batch effects:
+First I merged all the samples and plotted the UMAP embedding to get an overall view of data. The source of the cells was not used for clustering.:
 ![Groups](/figures/umap_merged_group.png)
-![Merged HIV](/figures/umap_merged_CD3d.png)
+This shows that there are large batch effects which could be caused by being in different vessels during in vitro work or the fact that cells are from different donors.
+
+![Merged HIV](/figures/umap_merged_HIV.png)
 
 It is reassuring to see that samples which were not HIV infected (d1u, d2u) did not have substantial expression of HIV. The following plot of CD3 expression is more interesting:
 
