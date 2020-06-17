@@ -7,15 +7,16 @@ A paper from a few years ago (PMID: 30282021) reported a scRNAseq dataset (10x C
 
 The paper was published around the time the first RNA velocity paper was published (PMID: 30089906). As such, it is unlikely the authors considered using this analysis technique which might help to give a more detailed understanding of the latent HIV reservoir. 
 
-In this analysis I have used the excellent scVelo package (w/ scanpy and anndata) to estimate RNA velocity components (https://doi.org/10.1101/820936). The RNA velocity approach is based on the idea that unspliced transcripts can be used to estimate the "future state" of the cell (and thus the local trajectory or velocity of each cell). These approaches require that both the unspliced and spliced transcripts be enumerated during mapping. 
+In this analysis I have used the excellent scVelo package (w/ scanpy and anndata) to estimate RNA velocity components (https://doi.org/10.1101/820936). The RNA velocity approach is based on the idea that unspliced transcripts can be used to estimate the "future state" of the cell (and thus the local trajectory or velocity of each cell). This approach requires that both the unspliced and spliced transcripts be enumerated during mapping. 
 
-To get the necessary setup to apply this approach I mapped the authors raw fastq data with salmon alevin (PMID: 30917859) on an EC2 instance. For building the index I used the GRCh38 annotated transcripts (from GENCODE) and appended the HIV genome (NL43-D6-dreGFP). I also added a matching "unspliced" transcript to each spliced transcript in the human genome using the getFeatureRanges function from the eisaR package. Inclusion of the intronic regions blew up the size of my salmon index by a lot and I ended up needing to use an EC2 instance with more than ~50GB of memory. I chose r5.xlarge to build the index followed by c5.12xlarge to do the mapping. Mapping took a little under an hour per sample.
+To get the necessary setup to apply this approach I mapped the raw fastq data with salmon alevin (PMID: 30917859) on an EC2 instance. For building the index I used the GRCh38 annotated transcripts (from GENCODE) and appended the HIV genome (NL43-D6-dreGFP). I also added a matching "unspliced" transcript to each spliced transcript in the human genome using the getFeatureRanges() function from the eisaR package. Inclusion of the intronic regions blew up the size of my salmon index and I ended up needing to use an EC2 instance with more than ~50GB of memory. I chose r5.xlarge to build the index followed by c5.12xlarge to do the mapping. Mapping took a little under an hour per sample.
 
 ## Results
 ### Combined sample analysis
-First I merged all the samples and plotted the UMAP embedding to get an overall view of data. The source of the cells was not used for clustering.:
+First I merged all the samples and plotted the UMAP embedding to get an overall view of data. Note that the source of the cells was not used for clustering.
 ![Groups](/figures/umap_merged_group.png)
-This shows that there are large batch effects which could be caused by being in different vessels during in vitro work or the fact that cells are from different donors.
+
+This shows that there are large batch effects which could be caused by being in different vessels during in vitro work or the fact that cells are from different donors. I also plotted the expression of HIV virus:
 
 ![Merged HIV](/figures/umap_merged_HIV.png)
 
@@ -23,7 +24,7 @@ It is reassuring to see that samples which were not HIV infected (d1u, d2u) did 
 
 ![Merged CD3d](/figures/umap_merged_CD3d.png)
 
-This plot clearly show a sub-population of cells that lack CD3d expression in donor 1 (but not donor 2). CD3 is a marker of the T-cell lineage which strongly suggests that this population of CD3- cells are not T-cells. It is likely that there is some type of contaminating population - possibly the H80 feeder cells used to stimulate the T-cells.
+This plot clearly shows a sub-population of cells that lack CD3d expression in donor 1 (but not donor 2). CD3 is a marker of the T-cell lineage which strongly suggests that this population of CD3- cells are not T-cells. It is likely that there is some type of contaminating population in the donor 1 samples - possibly the H80 feeder cells used to stimulate the T-cells.
 
 Now I plot the expression of Beta-2-microglobulin (B2M):
 ![Merged B2M](/figures/umap_merged_B2M.png)
@@ -53,11 +54,6 @@ Next I examined plots of each sample separately using the embedded RNA-velocity 
 It is clear so far from the analysis that there is contamination of the CD4 T-cells with non-T cells in donor 1 (but not donor 2). My hypothesis is that these are likely the feeder cells (H80) which are used to keep the immune cells activated and alive. 
 
 Second, it is clear that there is a population of cells that lack beta-2-microglobulin (B2M) expression but express CD3. This subpopulation can be clearly seen in figures scvelo\_d1u\_B2M\_umap.png, scvelo\_d2u\_B2M\_umap.png, scvelo\_B2M\_CD3d\_umap.png (shown above). If this turns out to be real it could suggest that a subset of Tcells can downregulate B2M - suggesting a possible mechanism by which T-cells can survive for long periods of time by avoiding CTLs (which require expression of B2M as part of MHC-1 in order to mediate killing). I am looking into what other genes correlate with B2M expression in this dataset in hopes of a hint for what might be causing loss of B2M.
-
-## What this code does:
-The notebook extracts the data from the alevin binary format (in R), separates-out the "unspliced" and "spliced" counts using splitSE (from tximeta), and then converts the data into a format to be used by scVelo (anndata) in Python. I then remove droplets with very low and very high counts and select only genes with high dispersion across all the samples which will be used for velocity estimation.
-
-From here, various processing calculations are performed including normalization. Data is stored along the way. Plots are generated.
 
 ## How to run
 ```
@@ -91,6 +87,11 @@ The image I used to build the salmon index and map reads:
 ```
 docker pull combinelab/salmon
 ```
+
+## What this code does:
+The notebook extracts the data from the alevin binary format (in R), separates-out the "unspliced" and "spliced" counts using splitSE (from tximeta), and then converts the data into a format to be used by scVelo (anndata) in Python. I then remove droplets with very low and very high counts and select only genes with high dispersion across all the samples which will be used for velocity estimation.
+
+From here, various processing calculations are performed including normalization. Data is stored along the way to avoid recomputation. Plots are generated.
 
 ## Future work:
 1. Mitochodrial gene expression.
