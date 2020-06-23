@@ -29,7 +29,7 @@ This plot clearly shows a sub-population of cells that lack CD3d expression in d
 Now I plot the expression of Beta-2-microglobulin (B2M):
 ![Merged B2M](/figures/umap_merged_B2M.png)
 
-This shows that in d1u, d2u, and d2i that there is a substantial fraction of cells with very low expression of B2M. This could be significant as B2M is required to produce MHC class 1 surface moleculars which are used by CD8+ T-cells to kill infected cells.
+If you look closely it appears that there is a population of cells with low B2M expression (dark blue) alongside the other cells. This appears to occur in samples d1u, d2u, and d2i. This could be significant as B2M is required to produce MHC class 1 surface moleculars which are used by CD8+ T-cells to kill infected cells.
 
 ### Individual sample analysis
 Next I examined plots of each sample separately using the embedded RNA-velocity field overlaid on the UMAP embedding. For now, I am recalculating the UMAP embedding for each sample (therefore individual samples are not directly comparable across plots). I am still working on transferring the merged embedding (after batch correction) to each individual sample which will make samples easier to compare. I also performed clustering using the louvain algorithm with default settings (scvelo.tl.louvain()) - though I think I would prefer to see fewer clusters for these samples.
